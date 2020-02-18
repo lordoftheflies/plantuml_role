@@ -5,11 +5,33 @@ driver:
   name: docker
 lint:
   name: yamllint
+  options:
+    config-file: .ansible-lint
 platforms:
   - name: plantuml_role_ubuntu_eoan_instance
     image: ubuntu:eoan
+    pull: true
+    registry:
+      url: registry.hub.docker.com
+      credentials:
+        username: lordoftheflies
+        password: Armageddon0
+        email: laszlo.hegedus@cherubits.hu
+        user: root
+      privileged: true
+      pre_build_image: true
   - name: plantuml_role_ubuntu_disco_instance
     image: ubuntu:disco
+    pull: true
+    registry:
+      url: registry.hub.docker.com
+      credentials:
+        username: lordoftheflies
+        password: Armageddon0
+        email: laszlo.hegedus@cherubits.hu
+        user: root
+      privileged: true
+      pre_build_image: true
 provisioner:
   name: ansible
   lint:

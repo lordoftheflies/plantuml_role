@@ -1,0 +1,49 @@
+pbr>=2.0 # Apache-2.0
+ansible>=2.9.0 # GPLv3
+ansible-lint>=3.0.0 # MIT
+netaddr!=0.7.16,>=0.7.13 # BSD
+cliff>=2.15.0 # Apache
+PyYAML>=3.10.0 # MIT
+pyparsing>=2.2.1
+setuptools!=24.0.0,!=34.0.0,!=34.0.1,!=34.0.2,!=34.0.3,!=34.1.0,!=34.1.1,!=34.2.0,!=34.3.0,!=34.3.1,>=16.0 # PSF/ZPL
+six>=1.14.0
+pillow
+
+ansible-lint>=3.0.0 # MIT
+bashate>=0.2 # Apache-2.0
+docker>=3 # Apache-2.0
+coverage>=5.0.3
+hacking>=0.13 # Apache-2.0
+molecule>=2.22 # MIT
+molecule[lint]
+molecule[docker]
+oslotest>=1.10.0 # Apache-2.0
+paramiko>=2.5.0
+stestr # Apache-2.0
+yamllint # GPLv3
+pycodestyle
+conventional-commit>=0.3.2
+pre-commit>=2.0.1
+poetry>=0.7.0
+pytest
+pytest-cov
+mock
+
+doc8 # Apache-2.0
+sphinx>=2.4.1
+sphinxcontrib-plantuml>=0.18
+sphinxcontrib-googleanalytics
+# sphinxcontrib-youtube
+sphinxcontrib-email
+sphinxcontrib-inlinesyntaxhighlight
+sphinxcontrib-newsfeed
+sphinxcontrib-googlechart
+sphinxcontrib-imagesvg
+sphinxcontrib-inlinesyntaxhighlight
+sphinxcontrib-googlemaps
+sphinxcontrib-findanything
+sphinxcontrib-argdoc
+sphinxcontrib-email
+sphinxcontrib-examplecode
+sphinxcontrib-exceltable
+sphinxcontrib-mockautodoc

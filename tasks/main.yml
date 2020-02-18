@@ -26,10 +26,10 @@
   when: plantuml_role_linux_packages is defined and plantuml_role_linux_packages|length > 0
   with_items: "{{ plantuml_role_linux_packages }}}"
   package:
-      name: "{{ plantuml_role_linux_package }}"
-      state: state|default("present")
+    name: "{{ plantuml_role_linux_package }}"
+    state: state|default("present")
   loop_control:
-      loop_var: plantuml_role_linux_package
+    loop_var: plantuml_role_linux_package
 
 - name: "Check server state"
   register: plantuml_role_check_result

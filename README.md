@@ -157,6 +157,12 @@ molecule init scenario -s lxd -d lxd -r plantuml_role
 molecule init scenario -s vagrant -d vagrant -r plantuml_role
 ```
 
+### Setup Tox
+```shell script
+pip install tox
+```
+
+
 ### Testing
 
 To test with all VM's defined in Vagrantfile run the following:
