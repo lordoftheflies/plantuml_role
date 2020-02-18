@@ -1,0 +1,7 @@
+---
+- name: Cleanup
+  hosts: all
+  become: yes
+  roles:
+    - role: plantuml_role
+      state: present

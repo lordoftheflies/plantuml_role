@@ -1,0 +1,6 @@
+---
+- name: Create
+  hosts: all
+  roles:
+    - role: plantuml_role
+      state: present

@@ -1,0 +1,7 @@
+---
+- name: Destroy
+  hosts: all
+  become: yes
+  roles:
+    - role: plantuml_role
+      state: absent

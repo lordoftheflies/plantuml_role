@@ -9,33 +9,42 @@ lint:
     config-file: .ansible-lint
 platforms:
   - name: plantuml_role_ubuntu_eoan_instance
-    image: ubuntu:eoan
+    hostname: plantuml_role_ubuntu_eoan_instance
+    image: ubuntu:19.10
+    command: ${MOLECULE_DOCKER_COMMAND:-""}
     pull: true
+    docker_host: tcp://localhost:2375
+    tls_verify: false
     registry:
-      url: registry.hub.docker.com
+      url: docker.io
       credentials:
         username: lordoftheflies
-        password: Armageddon0
+        password: 1ea4ebfe-e002-43e0-bfa1-2325ea6227d0
         email: laszlo.hegedus@cherubits.hu
         user: root
       privileged: true
       pre_build_image: true
-  - name: plantuml_role_ubuntu_disco_instance
-    image: ubuntu:disco
-    pull: true
-    registry:
-      url: registry.hub.docker.com
-      credentials:
-        username: lordoftheflies
-        password: Armageddon0
-        email: laszlo.hegedus@cherubits.hu
-        user: root
-      privileged: true
-      pre_build_image: true
+    volumes:
+      - "/sys/fs/cgroup:/sys/fs/cgroup:rw"
+    command: "/usr/sbin/init"
+    tty: True
+    environment:
+        container: docker
 provisioner:
   name: ansible
   lint:
     name: ansible-lint
+  playbooks:
+    docker:
+      prepare: ${MOLECULE_PLAYBOOK:-prepare.yml}
+      cleanup: ${MOLECULE_PLAYBOOK:-cleanup.yml}
+      converge: ${MOLECULE_PLAYBOOK:-converge.yml}
+      create: ${MOLECULE_PLAYBOOK:-create.yml}
+      destroy: ${MOLECULE_PLAYBOOK:-destroy.yml}
+  inventory:
+    host_vars:
+      plantuml_role_ubuntu_eoan_instance:
+        ansible_user: ansible
 verifier:
   name: testinfra
   lint:
