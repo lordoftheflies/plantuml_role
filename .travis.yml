@@ -1,6 +1,6 @@
 ---
 language: python
-python: "2.7"
+python: "3.7"
 
 # Use the new container infrastructure
 sudo: false
@@ -9,7 +9,7 @@ sudo: false
 addons:
   apt:
     packages:
-    - python-pip
+      - python3-pip
 
 install:
   # Install ansible
@@ -19,7 +19,7 @@ install:
   - ansible --version
 
   # Create ansible.cfg with correct roles_path
-  - printf '[defaults]\nroles_path=../' >ansible.cfg
+  - printf '[defaults]\nroles_path = ../\ninterpreter_python = /usr/bin/python3.7' > ansible.cfg
 
 script:
   # Basic role syntax check

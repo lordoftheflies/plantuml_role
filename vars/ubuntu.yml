@@ -1,0 +1,4 @@
+---
+plantuml_role_linux_packages:
+    - graphviz
+    - plantuml

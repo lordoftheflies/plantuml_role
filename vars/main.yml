@@ -1,2 +1,8 @@
 ---
-# vars file for plantuml_role
+plantuml_role_domain: 'cherubits.hu'
+plantuml_role_subdomain: 'plantuml'
+plantuml_role_plantuml_limit_size: 1024
+plantuml_role_graphviz_dot: /usr/bin/dot
+plantuml_role_plantuml_stats: on
+plantuml_role_http_authorization: null
+plantuml_role_allow_plantuml_include: true

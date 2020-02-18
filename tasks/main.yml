@@ -1,2 +1,41 @@
 ---
-# tasks file for plantuml_role
+- name: "Include version-specific variables for OS."
+  include_vars: "{{ os_specific_variables }}"
+  with_first_found:
+    - files:
+        - "vars/{{ ansible_distribution|lower }}_{{ ansible_distribution_version }}.yml"
+        - "vars/{{ ansible_distribution|lower }}_{{ ansible_distribution_major_version }}.yml"
+        - "vars/{{ ansible_distribution|lower }}.yml"
+        - "vars/{{ ansible_os_family|lower }}.yml"
+      skip: true
+      loop_control: loop_var=os_specific_variables
+
+- name: "Include OS specific tasks"
+  include_tasks: "{{ os_specific_tasks }}"
+  with_first_found:
+    - files:
+        - "tasks/{{ ansible_distribution|lower }}_{{ ansible_distribution_version }}.yml"
+        - "tasks/{{ ansible_distribution|lower }}_{{ ansible_distribution_major_version }}.yml"
+        - "tasks/{{ ansible_distribution|lower }}.yml"
+        - "tasks/{{ ansible_os_family|lower }}.yml"
+      skip: true
+      loop_control: loop_var=os_specific_tasks
+
+- name: "Setup linux packages"
+  become: true
+  when: plantuml_role_linux_packages is defined and plantuml_role_linux_packages|length > 0
+  with_items: "{{ plantuml_role_linux_packages }}}"
+  package:
+      name: "{{ plantuml_role_linux_package }}"
+      state: state|default("present")
+  loop_control:
+      loop_var: plantuml_role_linux_package
+
+- name: "Check server state"
+  register: plantuml_role_check_result
+  ignore_errors: true
+  command: plantuml -testdot
+
+- name: "Server version information"
+  when: plantuml_role_check_result.rc == 5
+  debug: var=plantuml_role_check_result
