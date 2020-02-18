@@ -1,38 +1,149 @@
-Role Name
-=========
+# Ansible Role: PlantUML
 
-A brief description of the role goes here.
+Ansible Galaxy role for PlantUML server and libraries.
 
-Requirements
-------------
+## State
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+[![Build Status](https://travis-ci.org/lordoftheflies/plantuml_role.svg?branch=master)](https://travis-ci.org/lordoftheflies/plantuml_role)
 
-Role Variables
---------------
+## Requirements
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+Production:
+* [Ansible 2.9+](https://docs.ansible.com/ansible/latest/roadmap/ROADMAP_2_9.html)
+* [Python 3.4+](https://www.python.org/downloads/release/python-340/)
 
-Dependencies
-------------
+Development:
+* Virtualenv
+* [Tox 3.4+](https://tox.readthedocs.io/en/3.4.0/index.html)
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+## Role Variables
 
-Example Playbook
-----------------
+
+| Name | Description | Default |
+| :--- | :--- | :--- |
+| `plantuml_role_domain` | Primary domain of organization. | `cherubits.hu` |
+| `plantuml_role_subdomain` | Subdomain of service | `plantuml` |
+
+<p>
+<details>
+<summary> `plantuml_role_plantuml_limit_size` </summary>
+
+Limits image width and height.
+
+Default value: Environment variable `PLANTUML_LIMIT_SIZE`=4096
+
+</details>
+</p>
+
+<p>
+<details>
+<summary> `plantuml_role_graphviz_dot` </summary>
+
+Link to `dot` executable.
+
+Default value: Environment variable `GRAPHVIZ_DOT`=/usr/bin/dot
+
+</details>
+</p>
+
+<p>
+<details>
+<summary> `plantuml_role_plantuml_stats` </summary>
+
+Set it to `on` to enable [statistics report](http://plantuml.com/statistics-report)
+
+Default value: Environment variable `PLANTUML_STATS`=`off`
+
+</details>
+</p>
+
+<p>
+<details>
+<summary> `plantuml_role_plantuml_stats` </summary>
+
+When calling the proxy endpoint, the value of `HTTP_AUTHORIZATION` will be used to set the HTTP Authorization header
+
+Default value: Environment variable HTTP_AUTHORIZATION=`null`
+
+</details>
+</p>
+
+<p>
+<details>
+<summary> `plantuml_role_allow_plantuml_include` </summary>
+
+Enables `!include` processing which can read files from the server into diagrams. Files are read relative to the current working directory.
+Default value: Environment variable ALLOW_PLANTUML_INCLUDE=`false`
+
+</details>
+</p>
+
+
+## Dependencies
+
+This role depends on:
+* [lordoftheflies.python](https://galaxy.ansible.com/lordoftheflies/python_role) [![Build Status](https://travis-ci.org/lordoftheflies/python_role.svg?branch=master)](https://travis-ci.org/lordoftheflies/python_role)
+* [lordoftheflies.java](https://galaxy.ansible.com/lordoftheflies/java_role) [![Build Status](https://travis-ci.org/lordoftheflies/python_role.svg?branch=master)](https://travis-ci.org/lordoftheflies/java_role)
+
+Group and host variables:
+* Business-service domain is mandatory (`organization_domain`)
+* Business-service subdomain is mandatory (`organization_subdomain`)
+
+## Example Playbooks
 
 Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
 
-    - hosts: servers
+Install role hosts
+```yamlex
+- hosts: plantuml_servers
       roles:
-         - { role: username.rolename, x: 42 }
+         - role: lordoftheflies.plantuml_role
+           vars: 
+             organization_domain: 'acme.org'
+             organization_subdomain: 'plantuml'
+```
 
-License
--------
+Uninstall role hosts:
+```yamlex
+- hosts: plantuml_servers
+      roles:
+         - role: lordoftheflies.plantuml_role
+           state: absent
 
-BSD
+```
 
-Author Information
-------------------
+Backup role hosts configuration:
+```yamlex
+- hosts: plantuml_servers
+      roles:
+         - role: lordoftheflies.plantuml_role
+           vars:
+               - export_config: true
+               - backup_data: false
+```
+Reconfigure role hosts:
+```yamlex
+- hosts: plantuml_servers
+      roles:
+         - role: lordoftheflies.plantuml_role
+           vars:
+               - import_config: true
+```
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+
+
+## License
+
+Apache 2.0
+
+## Author Information
+
+* [László Hegedűs](https://github.com/lordoftheflies) [:envelope:](mailto:laszlo.hegedus@cherubits.hu)
+
+#### Referencies
+
+* [PlantUML](https://github.com/lordoftheflies/plantuml)
+* [PlantUML Documentation](https://github.com/lordoftheflies/plantuml-documentation)
+* [PlantUML Library](https://github.com/lordoftheflies/plantuml-stdlib)
+* [PlantUML Server](https://github.com/lordoftheflies/plantuml-server)
+* [PlantUML Wiki](https://github.com/lordoftheflies/plantuml-wiki)

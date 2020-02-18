@@ -1,6 +1,6 @@
 ---
 - name: "Purge role instance from the server ..."
-  hosts: all
+  hosts: plantuml_servers
   remote_user: root
   roles:
     - role: plantuml_role
