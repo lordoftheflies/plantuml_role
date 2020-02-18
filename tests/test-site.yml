@@ -1,0 +1,7 @@
+---
+- name: "Setup role instance"
+  hosts: all
+  remote_user: root
+  roles:
+    - role: plantuml_role
+      state: present

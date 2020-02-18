@@ -1,0 +1,7 @@
+---
+- name: "Purge role instance from the server ..."
+  hosts: all
+  remote_user: root
+  roles:
+    - role: plantuml_role
+      state: absent
