@@ -1,0 +1,10 @@
+---
+all:
+  hosts:
+    plantuml_role_ubuntu_xenial_instance:
+      ansible_user: ansible
+    plantuml_role_ubuntu_eoan_instance:
+      ansible_user: ansible
+  vars:
+    ansible_user: ansible
+    become_user: ansible

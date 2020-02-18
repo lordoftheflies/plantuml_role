@@ -11,40 +11,69 @@ platforms:
   - name: plantuml_role_ubuntu_eoan_instance
     hostname: plantuml_role_ubuntu_eoan_instance
     image: ubuntu:19.10
-    command: ${MOLECULE_DOCKER_COMMAND:-""}
+    # command: ${MOLECULE_DOCKER_COMMAND:-""}
     pull: true
     docker_host: tcp://localhost:2375
     tls_verify: false
     registry:
-      url: docker.io
+      url: quay.io
       credentials:
         username: lordoftheflies
-        password: 1ea4ebfe-e002-43e0-bfa1-2325ea6227d0
+        password: Hlu1XPWG5n0rhJk/1nrTTJ215oSouBx0NUGIb9TnqYQaSvVA7aqCvbXhl6txwSUH
         email: laszlo.hegedus@cherubits.hu
         user: root
-      privileged: true
-      pre_build_image: true
+    privileged: true
+    pre_build_image: true
     volumes:
       - "/sys/fs/cgroup:/sys/fs/cgroup:rw"
-    command: "/usr/sbin/init"
-    tty: True
+    tty: true
     environment:
-        container: docker
+      container: docker
+  - name: plantuml_role_ubuntu_xenial_instance
+    hostname: plantuml_role_ubuntu_xenial_instance
+    image: ubuntu:18.10
+    # command: ${MOLECULE_DOCKER_COMMAND:-""}
+    pull: true
+    docker_host: tcp://localhost:2375
+    tls_verify: false
+    registry:
+      url: quay.io
+      credentials:
+        username: lordoftheflies
+        password: Hlu1XPWG5n0rhJk/1nrTTJ215oSouBx0NUGIb9TnqYQaSvVA7aqCvbXhl6txwSUH
+        email: laszlo.hegedus@cherubits.hu
+        user: root
+    privileged: true
+    pre_build_image: true
+    volumes:
+      - "/sys/fs/cgroup:/sys/fs/cgroup:rw"
+    tty: true
+    environment:
+      container: docker
 provisioner:
   name: ansible
+  config_options:tus
+    defaults:
+      interpreter_python: /usr/bin/python3.7
+      token: 2760cbdaf927dbdc9082fa3de73305540349b397
+      remote_tmp: /tmp/.ansible-${USER}/tmp
+      local_tmp: $HOME/.ansible/tmp
   lint:
     name: ansible-lint
   playbooks:
-    docker:
-      prepare: ${MOLECULE_PLAYBOOK:-prepare.yml}
-      cleanup: ${MOLECULE_PLAYBOOK:-cleanup.yml}
-      converge: ${MOLECULE_PLAYBOOK:-converge.yml}
-      create: ${MOLECULE_PLAYBOOK:-create.yml}
-      destroy: ${MOLECULE_PLAYBOOK:-destroy.yml}
+    prepare: ${MOLECULE_PLAYBOOK:-prepare.yml}
+    cleanup: ${MOLECULE_PLAYBOOK:-cleanup.yml}
+    converge: ${MOLECULE_PLAYBOOK:-converge.yml}
+    create: ${MOLECULE_PLAYBOOK:-create.yml}
+    destroy: ${MOLECULE_PLAYBOOK:-destroy.yml}
   inventory:
     host_vars:
       plantuml_role_ubuntu_eoan_instance:
-        ansible_user: ansible
+        ansible_user: root
+        become_user: root
+      plantuml_role_ubuntu_xenial_instance:
+        ansible_user: root
+        become_user: root
 verifier:
   name: testinfra
   lint:
